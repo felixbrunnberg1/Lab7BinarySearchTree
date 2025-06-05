@@ -8,5 +8,53 @@ namespace Lab7BinarySearchTree
 {
     internal class BinarySearchTree
     {
+
+
+        public BinarySearchTree() { }
+
+        public void AddIterative(int value)
+        {
+
+        }
+
+        public void AddRecursive(int value)
+        {
+
+        }
+
+        private void AddRecursiveHelper(TreeNode current, int value)
+        {
+
+        }
+
+        public void DeleteIterative(int value)
+        {
+
+        }
+
+        public void DeleteRecursive(int value)
+        {
+
+        }
+
+        private void DeleteRecursiveHelper(TreeNode current, int value) 
+        { 
+        
+        }
+
+        public void SearchIterative(int value)
+        {
+
+        }
+
+        public void SearchRecursiveint(int value)
+        {
+
+        }
+
+        private void SearchRecursiveHelper(TreeNode current, int value)
+        {
+
+        }
     }
 }

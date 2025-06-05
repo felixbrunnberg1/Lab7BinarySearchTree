@@ -8,9 +8,12 @@ namespace Lab7BinarySearchTree
 {
     internal class BinarySearchTree
     {
+        TreeNode root;
 
-
-        public BinarySearchTree() { }
+        public BinarySearchTree(int value) 
+        {
+            root = new TreeNode(value);
+        }
 
         public void AddIterative(int value)
         {

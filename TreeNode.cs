@@ -8,5 +8,20 @@ namespace Lab7BinarySearchTree
 {
     internal class TreeNode
     {
+        public int Value { get; set; }
+        public TreeNode Left { get; set; }
+        public TreeNode Right { get; set; }
+        
+        public TreeNode(int value)
+        {
+            Value = value;
+            Left = null;
+            Right = null;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

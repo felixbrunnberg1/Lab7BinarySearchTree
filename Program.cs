@@ -4,34 +4,44 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            //Console.WriteLine("Hello, World!");
             BinarySearchTree bst = new BinarySearchTree(20);
-            bst.AddRecursive(19);
-            bst.AddRecursive(21);
-            bst.AddRecursive(22);
-            Console.WriteLine(bst.root.Left);
-            Console.WriteLine(bst.root.Right);
-            Console.WriteLine(bst.root.Right.Right);
-            Console.WriteLine();
+            //bst.AddRecursive(19);
+            //bst.AddRecursive(21);
+            //bst.AddRecursive(22);
+            //Console.WriteLine(bst.root.Left);
+            //Console.WriteLine(bst.root.Right);
+            //Console.WriteLine(bst.root.Right.Right);
+            //Console.WriteLine();
 
-            Console.WriteLine(bst.SearchIterative(22));
-            Console.WriteLine(bst.SearchRecursive(22));
-            try
-            {
-                Console.WriteLine(bst.SearchIterative(23));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            try
-            {
-                Console.WriteLine(bst.SearchRecursive(23));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            //Console.WriteLine(bst.SearchIterative(22));
+            //Console.WriteLine(bst.SearchRecursive(22));
+            //try
+            //{
+            //    Console.WriteLine(bst.SearchIterative(23));
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            //try
+            //{
+            //    Console.WriteLine(bst.SearchRecursive(23));
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+
+            bst.AddRecursive(25);
+            bst.AddRecursive(15);
+            bst.AddRecursive(18);
+            bst.AddRecursive(19);
+            bst.AddRecursive(16);
+            bst.AddRecursive(10);
+
+            bst.root = bst.DeleteIterative(15);
+            bst.InorderTraversal(bst.root);
         }
     }
 }

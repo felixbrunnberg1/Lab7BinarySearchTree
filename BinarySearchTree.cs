@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Lab7BinarySearchTree
 {
@@ -79,43 +81,82 @@ namespace Lab7BinarySearchTree
 
         }
 
-        public void DeleteIterative(int value)
+        public TreeNode DeleteIterative(int value)
         {
-            TreeNode current = root;
-            TreeNode prev = current;
+            TreeNode current = SearchIterative(value);
+            TreeNode successor = GetSuccessor(current);
+            
+            current.Value = successor.Value;
 
-            while (current != null && current.Value != value)
+            TreeNode successorParent = current.Right;
+            while (successorParent.Left.Value != current.Value) //find parent of the successor
             {
-                if (value < current.Value)
-                {
-                    prev = current;
-                    current = current.Left;
-                }
-                else
-                {
-                    prev = current;
-                    current = current.Right;
-                }
+                successorParent = successorParent.Left;
             }
+            successorParent.Left = null; // Remove the successor
+            return root;
+        }
+
+        public TreeNode DeleteRecursive(int value)
+        {
+            return DeleteRecursiveHelper(root, value);
+        }
+
+        private TreeNode DeleteRecursiveHelper(TreeNode current, int value)
+        {
+            if (current == null)
+            {
+                return current;
+            }
+
+            if (current.Value > value)
+            {
+                current.Left = DeleteRecursiveHelper(current.Left, value);
+            }
+            else if (current.Value < value)
+            {
+                current.Right = DeleteRecursiveHelper(current.Right, value);
+            }
+            else
+            {
+                if (current.Left == null)
+                {
+                    return current.Right;
+                }
+                if (root.Right == null)
+                {
+                    return current.Left;
+                }
+
+
+                TreeNode successor = GetSuccessor(current);
+                current.Value = successor.Value;
+                current.Right = DeleteRecursiveHelper(current.Right, successor.Value);
+            }
+            return current;
+        }
+
+        private TreeNode GetSuccessor(TreeNode node)
+        {
+            TreeNode current = node.Right;
+            while (current.Left != null)
+            {
+                current = current.Left;
+            }
+            return current;
+        }
+
+        public void InorderTraversal(TreeNode current)
+        {
             if (current != null)
             {
-                throw new Exception("Value does not exist");
+                InorderTraversal(current.Left);
+                Console.Write(current.Value + " ");
+                InorderTraversal(current.Right);
             }
-
-            
         }
 
-        public void DeleteRecursive(int value)
-        {
-
-        }
-
-        private void DeleteRecursiveHelper(TreeNode current, int value)
-        {
-
-        }
-
-        public bool SearchIterative(int value)
+        public TreeNode SearchIterative(int value)
         {
             TreeNode current = root;
 
@@ -131,24 +172,24 @@ namespace Lab7BinarySearchTree
                 }
             }
             if (current == null)
-                return false;
-            return true;
+                return current;
+            return current;
         }
 
-        public bool SearchRecursive(int value)
+        public TreeNode SearchRecursive(int value)
         {
             return SearchRecursiveHelper(root, value);
         }
 
-        private bool SearchRecursiveHelper(TreeNode current, int value)
+        private TreeNode SearchRecursiveHelper(TreeNode current, int value)
         {
             if (current == null)
             {
-                return false;
+                throw new Exception("Value does not exist");
             }
             if (value == current.Value)
             {
-                return true;
+                return current;
             }
             else if (value < current.Value)
             { 

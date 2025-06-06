@@ -61,6 +61,11 @@ namespace Lab7BinarySearchTree
             {
                 throw new Exception("Cannot add duplicate key");
             }
+            if (root == null)
+            {
+                root = new TreeNode(value);
+                return;
+            }
             AddRecursiveHelper(root, value);
         }
 

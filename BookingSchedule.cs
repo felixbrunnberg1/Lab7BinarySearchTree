@@ -9,6 +9,7 @@ namespace Lab7BinarySearchTree
     internal class BookingSchedule
     {
         private BinarySearchTree schedule;
+<<<<<<< HEAD
         private Dictionary<DateTime, Event> events;
 
 
@@ -36,5 +37,8 @@ namespace Lab7BinarySearchTree
         {
 
         }
+=======
+        //FindNextAvailableEvent(DateTime startTime);
+>>>>>>> adccf5bf52d1ad15eadb5b58ad695697a4c81753
     }
 }

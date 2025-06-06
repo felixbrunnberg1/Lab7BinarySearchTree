@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,15 +13,21 @@ namespace Lab7BinarySearchTree
     {
         public TreeNode root;
 
-        public BinarySearchTree(int value)
+        public BinarySearchTree()
         {
-            root = new TreeNode(value);
+            root = null;
         }
 
         public void AddIterative(int value)
         {
             TreeNode current = root;
             bool loop = true;
+
+            if (root == null)
+            {
+                root = new TreeNode(value);
+                return;
+            }
             while (loop)
             {
                 if (value == current.Value)
@@ -53,6 +60,11 @@ namespace Lab7BinarySearchTree
             if (value == root.Value)
             {
                 throw new Exception("Cannot add duplicate key");
+            }
+            if (root == null)
+            {
+                root = new TreeNode(value);
+                return;
             }
             AddRecursiveHelper(root, value);
         }
@@ -201,6 +213,27 @@ namespace Lab7BinarySearchTree
             }
 
 
+        }
+
+        public TreeNode GetNextInorder(int value)
+        {
+            TreeNode current = root;
+            TreeNode next = null;
+
+            while (current != null)
+            {
+                if (value < current.Value)
+                { 
+                    next = current; 
+                    current = current.Left; 
+                }
+                else
+                {
+                    current = current.Right; 
+                }
+            }
+            
+            return next;
         }
     }
 }

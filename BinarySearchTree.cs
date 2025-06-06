@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -201,6 +202,30 @@ namespace Lab7BinarySearchTree
             }
 
 
+        }
+
+        public TreeNode GetNextInorder(int value)
+        {
+            TreeNode current = root;
+            TreeNode next = null;
+
+            while (current != null)
+            {
+                if (value < current.Value)
+                { 
+                    next = current; 
+                    current = current.Left; 
+                }
+                else
+                {
+                    current = current.Right; 
+                }
+            }
+            if (next == null)
+            {
+                throw new Exception("No next inorder value found");
+            }
+            return next;
         }
     }
 }

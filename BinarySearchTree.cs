@@ -13,15 +13,21 @@ namespace Lab7BinarySearchTree
     {
         public TreeNode root;
 
-        public BinarySearchTree(int value)
+        public BinarySearchTree()
         {
-            root = new TreeNode(value);
+            root = null;
         }
 
         public void AddIterative(int value)
         {
             TreeNode current = root;
             bool loop = true;
+
+            if (root == null)
+            {
+                root = new TreeNode(value);
+                return;
+            }
             while (loop)
             {
                 if (value == current.Value)
@@ -221,10 +227,7 @@ namespace Lab7BinarySearchTree
                     current = current.Right; 
                 }
             }
-            if (next == null)
-            {
-                throw new Exception("No next inorder value found");
-            }
+            
             return next;
         }
     }

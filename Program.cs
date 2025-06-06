@@ -64,10 +64,7 @@
             Event nextAvailableEvent = bookingSchedule.FindNextAvailableEvent(startTime);
             if (nextAvailableEvent != null)
             {
-                Console.WriteLine($"Next available event after {startTime}:
-           { nextAvailableEvent.Name}
-                at { nextAvailableEvent.Date}
-                ");
+                Console.WriteLine($"Next available event after {startTime}: {nextAvailableEvent.EventName} at { nextAvailableEvent.EventDate}");
             }
             else
             {

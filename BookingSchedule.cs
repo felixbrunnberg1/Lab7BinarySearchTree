@@ -10,7 +10,7 @@ namespace Lab7BinarySearchTree
     {
         private BinarySearchTree schedule;
 
-        private Dictionary<int, Event> events;
+        private Dictionary<int, Event> events = new Dictionary<int, Event>();
 
 
         public BookingSchedule()
@@ -22,14 +22,20 @@ namespace Lab7BinarySearchTree
         {
             int startTimeInt = (int)startTime.Ticks;
             TreeNode nextEvent = schedule.GetNextInorder(startTimeInt);
-            return events[nextEvent.Value];
+            if (nextEvent != null)
+            {
+                return events[nextEvent.Value];
+            }
+            return null;
         }
 
         public void AddEvent(Event newEvent)
-        {
-            if (events.ContainsKey((int)newEvent.EventDate.Ticks))
+        {   if (events != null)
             {
-                throw new Exception("Event already exists on this date.");
+                if (events.ContainsKey((int)newEvent.EventDate.Ticks))
+                {
+                    throw new Exception("Event already exists on this date.");
+                }
             }
 
             events.Add((int)newEvent.EventDate.Ticks, newEvent);

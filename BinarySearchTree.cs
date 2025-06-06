@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Lab7BinarySearchTree
 {
-    internal class BinarySearchTree
+    public class BinarySearchTree
     {
         public TreeNode root;
 
@@ -57,10 +57,6 @@ namespace Lab7BinarySearchTree
 
         public void AddRecursive(int value)
         {
-            if (value == root.Value)
-            {
-                throw new Exception("Cannot add duplicate key");
-            }
             if (root == null)
             {
                 root = new TreeNode(value);
@@ -71,6 +67,10 @@ namespace Lab7BinarySearchTree
 
         private void AddRecursiveHelper(TreeNode current, int value)
         {
+            if (current.Value == value)
+            {
+                throw new Exception("Cannot add duplicate key");
+            }
             if (value < current.Value)
             {
                 if (current.Left == null)
@@ -85,8 +85,7 @@ namespace Lab7BinarySearchTree
                 if (current.Right == null)
                 {
                     current.Right = new TreeNode(value);
-                    return;
-                    
+                    return; 
                 }
                 AddRecursiveHelper(current.Right, value);
             }
@@ -95,17 +94,60 @@ namespace Lab7BinarySearchTree
 
         public TreeNode DeleteIterative(int value)
         {
-            TreeNode current = SearchIterative(value);
-            TreeNode successor = GetSuccessor(current);
-            
-            current.Value = successor.Value;
-
-            TreeNode successorParent = current.Right;
-            while (successorParent.Left.Value != current.Value) //find parent of the successor
+            TreeNode parent = null;
+            TreeNode current = root;
+            while (current != null && current.Value != value)
             {
-                successorParent = successorParent.Left;
+                parent = current;
+                if (value < current.Value)
+                    current = current.Left;
+                else
+                    current = current.Right;
             }
-            successorParent.Left = null; // Remove the successor
+            if (current == null)
+            {
+                throw new Exception("Value does not exist in the tree");
+            }
+
+            //node has no children
+            if (current.Left == null && current.Right == null)
+            {
+                if (parent == null)
+                    root = null;
+                else if (parent.Left == current)
+                    parent.Left = null;
+                else
+                    parent.Right = null;
+            }
+            // node has one child
+            else if (current.Left == null || current.Right == null)
+            {
+                TreeNode child = current.Left ?? current.Right;
+                if (parent == null)
+                    root = child;
+                else if (parent.Left == current)
+                    parent.Left = child;
+                else
+                    parent.Right = child;
+            }
+            // node has 2 children
+            else
+            {
+                // find successor and its parent
+                TreeNode successorParent = current;
+                TreeNode successor = current.Right;
+                while (successor.Left != null)
+                {
+                    successorParent = successor;
+                    successor = successor.Left;
+                }
+                current.Value = successor.Value;
+                //remove successor
+                if (successorParent.Left == successor)
+                    successorParent.Left = successor.Right;
+                else
+                    successorParent.Right = successor.Right;
+            }
             return root;
         }
 
@@ -183,8 +225,7 @@ namespace Lab7BinarySearchTree
                     current = current.Right;
                 }
             }
-            if (current == null)
-                return current;
+           
             return current;
         }
 
